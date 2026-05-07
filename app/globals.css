@@ -1,26 +1,103 @@
 @import "tailwindcss";
 
+/* Поддержка класса .dark для ручного переключения темы next-themes */
+@variant dark (&:where(.dark, .dark *));
+
+/* Плавная смена темы */
+html {
+  transition: background-color 0.3s, color 0.3s;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Кастомный скроллбар */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #555;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes slideUp {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+.animate-slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Базовые стили для Markdown-контента в сообщениях ассистента */
+.message-content p {
+  margin-bottom: 0.5rem;
+}
+.message-content ul,
+.message-content ol {
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+}
+.message-content li {
+  margin-bottom: 0.25rem;
+}
+.message-content code {
+  background: rgba(0,0,0,0.05);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+.dark .message-content code {
+  background: rgba(255,255,255,0.1);
+}
+.message-content pre {
+  background: rgba(0,0,0,0.05);
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-bottom: 0.75rem;
+}
+.dark .message-content pre {
+  background: rgba(255,255,255,0.08);
+}
+.message-content blockquote {
+  border-left: 3px solid #3b82f6;
+  padding-left: 1rem;
+  color: #4b5563;
+  margin-bottom: 0.75rem;
+}
+.dark .message-content blockquote {
+  color: #9ca3af;
 }
