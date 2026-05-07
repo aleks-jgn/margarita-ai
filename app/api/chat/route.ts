@@ -1,4 +1,4 @@
-// src/app/api/chat/route.ts
+// app/api/chat/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
@@ -10,26 +10,38 @@ const client = new OpenAI({
 
 export async function POST(request: NextRequest) {
   try {
-    const {
-      messages,
-      model = 'deepseek/deepseek-v4-pro',   // модель по умолчанию
-      temperature = 0.7,
-      max_tokens = 1000,
-      systemPrompt,
-    } = await request.json();
+    const body = await request.json();
 
-    if (!messages || !Array.isArray(messages) || messages.length === 0) {
+    // 1. Валидация сообщений
+    if (!body.messages || !Array.isArray(body.messages) || body.messages.length === 0) {
       return NextResponse.json(
         { error: 'Неверный формат сообщений' },
         { status: 400 },
       );
     }
 
-    // Добавляем системное сообщение, если задан стиль
-    const messagesWithSystem = systemPrompt
-      ? [{ role: 'system', content: systemPrompt }, ...messages]
-      : messages;
+    // 2. Безопасные параметры с приведением типов
+    const model = body.model || 'deepseek/deepseek-v4-pro';
 
+    // Температура: ограничиваем 0–1
+    let temperature = parseFloat(body.temperature);
+    if (isNaN(temperature)) temperature = 0.7;
+    temperature = Math.min(Math.max(temperature, 0), 1);
+
+    // Максимальное количество токенов: ограничиваем 100–4096
+    let max_tokens = parseInt(body.max_tokens, 10);
+    if (isNaN(max_tokens)) max_tokens = 1000;
+    max_tokens = Math.min(Math.max(max_tokens, 100), 4096);
+
+    // Системный промпт (может отсутствовать)
+    const systemPrompt = body.systemPrompt || undefined;
+
+    // 3. Формируем сообщения
+    const messagesWithSystem = systemPrompt
+      ? [{ role: 'system', content: systemPrompt }, ...body.messages]
+      : body.messages;
+
+    // 4. Запрос к LLM
     const completion = await client.chat.completions.create({
       model,
       messages: messagesWithSystem,

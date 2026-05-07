@@ -279,7 +279,7 @@ export default function ChatInterface() {
                   id="temperature"
                   type="range"
                   min="0"
-                  max="2"
+                  max="1"
                   step="0.1"
                   value={temperature}
                   onChange={(e) =>
@@ -306,9 +306,18 @@ export default function ChatInterface() {
                   max="4096"
                   step="100"
                   value={maxTokens}
-                  onChange={(e) =>
-                    setMaxTokens(parseInt(e.target.value, 10))
-                  }
+                  onChange={(e) => {
+                    const raw = e.target.value;
+                    if (raw === '') {
+                      setMaxTokens(100);
+                      return;
+                    }
+                    let parsed = parseInt(raw, 10);
+                    if (isNaN(parsed)) return;
+                    // Ограничиваем диапазон
+                    parsed = Math.min(Math.max(parsed, 100), 4096);
+                    setMaxTokens(parsed);
+                  }}
                   className="w-full p-2 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 text-sm"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
