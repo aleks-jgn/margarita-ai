@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    // 1. Валидация сообщений
+    // Валидация сообщений
     if (!body.messages || !Array.isArray(body.messages) || body.messages.length === 0) {
       return NextResponse.json(
         { error: 'Неверный формат сообщений' },
@@ -20,8 +20,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 2. Безопасные параметры с приведением типов
-    const model = body.model || 'deepseek/deepseek-v4-pro';
+    // Безопасные параметры с приведением типов
+    const model = body.model || 'deepseek/deepseek-v4-flash';
 
     // Температура: ограничиваем 0–1
     let temperature = parseFloat(body.temperature);
@@ -36,12 +36,12 @@ export async function POST(request: NextRequest) {
     // Системный промпт (может отсутствовать)
     const systemPrompt = body.systemPrompt || undefined;
 
-    // 3. Формируем сообщения
+    // Формируем сообщения
     const messagesWithSystem = systemPrompt
       ? [{ role: 'system', content: systemPrompt }, ...body.messages]
       : body.messages;
 
-    // 4. Запрос к LLM
+    // Запрос к LLM
     const completion = await client.chat.completions.create({
       model,
       messages: messagesWithSystem,

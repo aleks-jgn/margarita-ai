@@ -4,15 +4,39 @@ export interface ModelInfo {
   id: string;
   name: string;
   description: string;
-  provider: 'routerai'; // теперь все модели через одного провайдера
+  provider: 'routerai'; // все модели через одного провайдера
 }
 
-// Доступные модели – только две
+// Доступные модели
 export const AVAILABLE_MODELS: ModelInfo[] = [
+  {
+    id: 'deepseek/deepseek-v4-flash',
+    name: 'DeepSeek V4 Flash',
+    description: 'Скоростная и экономичная ИИ-модель от DeepSeek',
+    provider: 'routerai',
+  },
   {
     id: 'deepseek/deepseek-v4-pro',
     name: 'DeepSeek V4 Pro',
-    description: 'Лучшая модель для кода и сложного анализа',
+    description: 'Мощная модель для кода и сложного анализа',
+    provider: 'routerai',
+  },
+  {
+    id: 'openai/gpt-5.4-nano',
+    name: 'OpenAI GPT-5.4 Nano',
+    description: 'Самая легкая и быстрая модель в линейке OpenAI',
+    provider: 'routerai',
+  },
+  {
+    id: 'xiaomi/mimo-v2.5',
+    name: 'Xiaomi MiMo-V2.5',
+    description: 'Продвинутая открытая ИИ-модель от компании Xiaomi',
+    provider: 'routerai',
+  },
+  {
+    id: 'ibm-granite/granite-4.1-8b',
+    name: 'IBM Granite 4.1 8B',
+    description: 'Компактная открытая модель для корпоративных задач',
     provider: 'routerai',
   },
   {
@@ -30,7 +54,7 @@ export interface StyleInfo {
   systemPrompt: string;
 }
 
-// Предустановленные стили общения (без изменений)
+// Предустановленные стили общения
 export const CHAT_STYLES: StyleInfo[] = [
   {
     id: 'standard',

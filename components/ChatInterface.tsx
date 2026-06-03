@@ -163,7 +163,7 @@ export default function ChatInterface() {
                 </svg>
               </button>
               {showModelDropdown && (
-                <div className="absolute top-full left-0 mt-1 w-72 sm:w-80 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 py-2 z-50 animate-fade-in">
+                <div className="absolute top-full left-0 mt-1 w-72 sm:w-80 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 py-2 z-50 animate-fade-in max-h-64 sm:max-h-80 overflow-y-auto">
                   <div className="px-4 py-2 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
                     Выбор модели
                   </div>
