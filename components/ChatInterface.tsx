@@ -391,10 +391,10 @@ export default function ChatInterface() {
                     : 'bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-bl-md'
                 }`}
               >
-                <div className="text-xs font-medium mb-1 opacity-70">
+                <div className="text-xs font-medium mb-1 text-gray-600/70 dark:text-gray-400/70">
                   {message.role === 'user' ? 'Вы' : 'Ассистент'}
-                  {message.model && (
-                    <span className="ml-2 opacity-50">{message.model}</span>
+                  {message.role === 'assistant' && message.model && (
+                    <span className="ml-2 text-gray-500/50 dark:text-gray-500/50">{message.model}</span>
                   )}
                 </div>
                 <div className="message-content text-sm">
@@ -458,7 +458,7 @@ export default function ChatInterface() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Введите ваш вопрос..."
-              className="w-full p-3 pr-12 bg-gray-100 dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none text-sm md:text-base placeholder-gray-400 dark:placeholder-gray-500"
+              className="w-full p-3 pr-12 bg-gray-100 dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none text-base placeholder-gray-400 dark:placeholder-gray-500"
               rows={1}
               style={{ maxHeight: '150px' }}
               disabled={isLoading}
