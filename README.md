@@ -13,7 +13,7 @@
 
 Margarita AI is a production-ready web application that allows users to interact with advanced large language models through a clean, adaptive interface. It provides:
 
-- Choice between **DeepSeek V4 Pro** and **Qwen3.6 Flash** via a unified API proxy
+- Choice between **DeepSeek V4 Flash**, **DeepSeek V4 Pro**, **OpenAI GPT-5.4 Nano**, **Xiaomi MiMo-V2.5**, **IBM Granite 4.1 8B** and **Qwen3.6 Flash** via a unified API proxy
 - Adjustable **temperature**, **max tokens**, and **conversation style** presets
 - **Dark/light theme** toggle with smooth transitions
 - Session-based chat history (stored client-side, no registration required)
