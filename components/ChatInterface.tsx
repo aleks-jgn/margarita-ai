@@ -391,7 +391,11 @@ export default function ChatInterface() {
                     : 'bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-800 dark:text-gray-200 rounded-bl-md'
                 }`}
               >
-                <div className="text-xs font-medium mb-1 text-gray-600/70 dark:text-gray-400/70">
+                <div className={`text-xs font-medium mb-1 ${
+                  message.role === 'user' 
+                    ? 'text-[#8cc9ff]' 
+                    : 'text-gray-600/70 dark:text-gray-400/70'
+                }`}>
                   {message.role === 'user' ? 'Вы' : 'Ассистент'}
                   {message.role === 'assistant' && message.model && (
                     <span className="ml-2 text-gray-500/50 dark:text-gray-500/50">{message.model}</span>
